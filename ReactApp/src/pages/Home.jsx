@@ -18,6 +18,8 @@ function Home() {
   const predefinedEmail = "rajulas@gmail.com";
   const predefinedPassword = "rajulaspass";
 
+  const linkedInLoginUrl = "http://localhost:4000/auth/linkedin";
+
   const handleLogin = (credentialResponse) => {
     const decoded = jwtDecode(credentialResponse.credential);
     setUser(decoded);
@@ -63,6 +65,10 @@ function Home() {
               onSuccess={handleLogin}
               onError={() => console.log("Login Failed")}
             />
+
+            <a href={linkedInLoginUrl} style={styles.linkedinButton}  >
+              Login with LinkedIn
+            </a>
 
             <hr style={{ margin: "2rem 0", borderColor: "white" }} />
 
@@ -112,14 +118,13 @@ const styles = {
     margin: "0 auto",
   },
   profileBox: {
-    width:"400px",
-    marginTop: "2rem",
-    display: "inline-block",
-    padding: "1.5rem",
-    borderRadius: "10px",
-    boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
-    backgroundColor: "#f9f9f9",
-  },
+  width: "400px",
+  margin: "2rem auto", 
+  padding: "1.5rem",
+  borderRadius: "10px",
+  boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
+  backgroundColor: "#f9f9f9",
+},
   avatar: {
     width: "80px",
     borderRadius: "50%",
@@ -145,6 +150,18 @@ const styles = {
     borderRadius: "4px",
     border: "1px solid #ccc",
     fontSize: "1rem",
+  },
+  linkedinButton: {
+    display: "inline-block",
+    padding: "0.5rem 1rem",
+    backgroundColor: "#0077B5", 
+    color: "#fff",
+    borderRadius: "4px",
+    textDecoration: "none",
+    fontWeight: "bold",
+    marginTop: "1rem",
+    cursor: "pointer",
+    width:"570px"
   },
 };
 
