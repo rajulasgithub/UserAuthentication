@@ -7,12 +7,6 @@ import axios from 'axios'
 
 
 function Home() {
-   const [formData, setFormData] = useState({
-     
-      email: '',
-      
-      password: '',
-    });
   const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem("user");
     return savedUser ? JSON.parse(savedUser) : null;
@@ -41,36 +35,22 @@ function Home() {
     localStorage.removeItem("user");
   };
 
-
-  const handleChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-
   const handleEmailLogin = async (e) => {
     e.preventDefault();
     setLoginError("");
-axios.post('https://reactecomapi.onrender.com/auth/login',{email,password}).then((response)=>{
-        console.log(response)
-    }).catch((erorr)=>{
-        console.log(response)
-    })
-    toast.success("successfully registered")
 
-//  if (email === predefinedEmail && password === predefinedPassword) {
-//      toast.success("Successfully logged in");
-//       const loggedInUser = { name: "Predefined User", email };
-//       setUser(loggedInUser);
-//       localStorage.setItem("user", JSON.stringify(loggedInUser));
-//       setEmail("");
-//       setPassword("");
-//     } else {
-//       toast.error("Invalid email or password");
-//       setLoginError("Invalid email or password");
-//     }
+
+ if (email === predefinedEmail && password === predefinedPassword) {
+     toast.success("Successfully logged in");
+      const loggedInUser = { name: "Predefined User", email };
+      setUser(loggedInUser);
+      localStorage.setItem("user", JSON.stringify(loggedInUser));
+      setEmail("");
+      setPassword("");
+    } else {
+      toast.error("Invalid email or password");
+      setLoginError("Invalid email or password");
+    }
     
   };
 
@@ -89,7 +69,7 @@ axios.post('https://reactecomapi.onrender.com/auth/login',{email,password}).then
               onError={() => console.log("Login Failed")}
             />
 
-            <a href={linkedInLoginUrl} style={styles.linkedinButton}  >
+            <a  style={styles.linkedinButton}  >
               Login with LinkedIn
             </a>
 
@@ -101,9 +81,8 @@ axios.post('https://reactecomapi.onrender.com/auth/login',{email,password}).then
                 name="email"
                 placeholder="Email"
                 value={email}
-                // onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
                 required
-                 onChange={handleChange}
                 style={styles.input}
               />
               <input
@@ -111,13 +90,17 @@ axios.post('https://reactecomapi.onrender.com/auth/login',{email,password}).then
                 name="password"
                 placeholder="Password"
                 value={password}
-                // onChange={(e) => setPassword(e.target.value)}
-                 onChange={handleChange}
+                onChange={(e) => setPassword(e.target.value)}
                 required
                 style={styles.input}
               />
               <button type="submit" style={styles.button}>
                 Login with Email
+              </button>
+               <button type="submit" style={styles.button}>
+                <a href="/signup" style={{color:"white",textDecoration:"none"}}>
+                Signup
+                </a>
               </button>
               {loginError && (
                 <p style={{ color: "red", marginTop: "0.5rem" }}>{loginError}</p>
