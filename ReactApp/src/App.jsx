@@ -5,7 +5,6 @@ import './App.css'
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import Home from './pages/Home'
 import Signup from './pages/Signup'
-import Profile from './pages/Profile'
 
 function App() {
 

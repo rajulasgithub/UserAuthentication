@@ -7,6 +7,12 @@ import axios from 'axios'
 
 
 function Home() {
+   const [formData, setFormData] = useState({
+     
+      email: '',
+     
+      password: '',
+    });
   const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem("user");
     return savedUser ? JSON.parse(savedUser) : null;
@@ -35,22 +41,35 @@ function Home() {
     localStorage.removeItem("user");
   };
 
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   const handleEmailLogin = async (e) => {
     e.preventDefault();
     setLoginError("");
 
+     axios.post('https://reactecomapi.onrender.com/auth/login',formData).then((response)=>{
+        console.log(response)
+    }).catch((erorr)=>{
+        console.log(response)
+    })
 
- if (email === predefinedEmail && password === predefinedPassword) {
-     toast.success("Successfully logged in");
-      const loggedInUser = { name: "Predefined User", email };
-      setUser(loggedInUser);
-      localStorage.setItem("user", JSON.stringify(loggedInUser));
-      setEmail("");
-      setPassword("");
-    } else {
-      toast.error("Invalid email or password");
-      setLoginError("Invalid email or password");
-    }
+
+//  if (email === predefinedEmail && password === predefinedPassword) {
+//      toast.success("Successfully logged in");
+//       const loggedInUser = { name: "Predefined User", email };
+//       setUser(loggedInUser);
+//       localStorage.setItem("user", JSON.stringify(loggedInUser));
+//       setEmail("");
+//       setPassword("");
+//     } else {
+//       toast.error("Invalid email or password");
+//       setLoginError("Invalid email or password");
+//     }
     
   };
 
@@ -80,8 +99,8 @@ function Home() {
                 type="email"
                 name="email"
                 placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={formData.email}
+                onChange={handleChange}
                 required
                 style={styles.input}
               />
@@ -89,8 +108,8 @@ function Home() {
                 type="password"
                 name="password"
                 placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={formData.password}
+                 onChange={handleChange}
                 required
                 style={styles.input}
               />
