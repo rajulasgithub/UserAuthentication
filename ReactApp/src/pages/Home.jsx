@@ -7,6 +7,12 @@ import axios from 'axios'
 
 
 function Home() {
+   const [formData, setFormData] = useState({
+     
+      email: '',
+      
+      password: '',
+    });
   const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem("user");
     return savedUser ? JSON.parse(savedUser) : null;
@@ -34,6 +40,15 @@ function Home() {
     toast.success("successsfully logout");
     localStorage.removeItem("user");
   };
+
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
 
   const handleEmailLogin = async (e) => {
     e.preventDefault();
@@ -86,8 +101,9 @@ axios.post('https://reactecomapi.onrender.com/auth/login',{email,password}).then
                 name="email"
                 placeholder="Email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                // onChange={(e) => setEmail(e.target.value)}
                 required
+                 onChange={handleChange}
                 style={styles.input}
               />
               <input
@@ -95,7 +111,8 @@ axios.post('https://reactecomapi.onrender.com/auth/login',{email,password}).then
                 name="password"
                 placeholder="Password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                // onChange={(e) => setPassword(e.target.value)}
+                 onChange={handleChange}
                 required
                 style={styles.input}
               />
