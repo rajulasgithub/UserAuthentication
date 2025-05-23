@@ -161,7 +161,8 @@ const styles = {
     fontWeight: "bold",
     marginTop: "1rem",
     cursor: "pointer",
-    width:"570px"
+    width:"570px",
+    textAlign:"center"
   },
 };
 
