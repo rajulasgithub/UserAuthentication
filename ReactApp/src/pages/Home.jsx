@@ -94,7 +94,7 @@ function Home() {
         ) : (
           <div style={styles.profileBox}>
             <img src={user.picture|| "../public/download.jpg"} alt="profile" style={styles.avatar} />
-            <h2>{user.name || user.email}</h2>
+            <h2 >{user.name || user.email}</h2>
             <p>{user.email}</p>
             <button onClick={handleLogout} style={styles.button}>
               Logout
