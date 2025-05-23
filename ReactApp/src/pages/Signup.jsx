@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -25,7 +28,7 @@ function Signup() {
     }).catch((erorr)=>{
         console.log(response)
     })
-    alert('Signup successful!');
+    toast.success("successfully registered")
     // Here you can call your backend API to submit the form data
   };
 

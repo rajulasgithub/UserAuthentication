@@ -3,6 +3,7 @@ import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import {jwtDecode} from "jwt-decode";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios'
 
 
 function Home() {
@@ -18,7 +19,7 @@ function Home() {
   const predefinedEmail = "rajulas@gmail.com";
   const predefinedPassword = "rajulaspass";
 
-  const linkedInLoginUrl = "http://localhost:4000/auth/linkedin";
+  // const linkedInLoginUrl = "http://localhost:4000/auth/linkedin";
 
   const handleLogin = (credentialResponse) => {
     const decoded = jwtDecode(credentialResponse.credential);
@@ -37,17 +38,24 @@ function Home() {
   const handleEmailLogin = async (e) => {
     e.preventDefault();
     setLoginError("");
- if (email === predefinedEmail && password === predefinedPassword) {
-     toast.success("Successfully logged in");
-      const loggedInUser = { name: "Predefined User", email };
-      setUser(loggedInUser);
-      localStorage.setItem("user", JSON.stringify(loggedInUser));
-      setEmail("");
-      setPassword("");
-    } else {
-      toast.error("Invalid email or password");
-      setLoginError("Invalid email or password");
-    }
+axios.post('https://reactecomapi.onrender.com/auth/login',{email,password}).then((response)=>{
+        console.log(response)
+    }).catch((erorr)=>{
+        console.log(response)
+    })
+    toast.success("successfully registered")
+
+//  if (email === predefinedEmail && password === predefinedPassword) {
+//      toast.success("Successfully logged in");
+//       const loggedInUser = { name: "Predefined User", email };
+//       setUser(loggedInUser);
+//       localStorage.setItem("user", JSON.stringify(loggedInUser));
+//       setEmail("");
+//       setPassword("");
+//     } else {
+//       toast.error("Invalid email or password");
+//       setLoginError("Invalid email or password");
+//     }
     
   };
 
@@ -75,6 +83,7 @@ function Home() {
             <form onSubmit={handleEmailLogin} style={styles.form}>
               <input
                 type="email"
+                name="email"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -83,6 +92,7 @@ function Home() {
               />
               <input
                 type="password"
+                name="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
