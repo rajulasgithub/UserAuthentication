@@ -31,6 +31,7 @@ function Home() {
     const decoded = jwtDecode(credentialResponse.credential);
     setUser(decoded);
      toast.success("successsfully logout");
+     
     localStorage.setItem("user", JSON.stringify(decoded));
   };
 
@@ -114,7 +115,7 @@ function Home() {
                 style={styles.input}
               />
               <button type="submit" style={styles.button}>
-                Login with Email
+                Login 
               </button>
                <button type="submit" style={styles.button}>
                 <a href="/signup" style={{color:"white",textDecoration:"none"}}>
